@@ -10,12 +10,11 @@ public class BasicAuthPlugin extends PlayPlugin {
     @Override
     public boolean serveStatic(VirtualFile file, Http.Request request, Http.Response response) {
         String basicAuthUrl = Play.configuration.getProperty("basicAuth.url");
-        if (basicAuthUrl == null || !request.url.startsWith(basicAuthUrl)) {
-            return true;
-        }
-        if (!BasicAuthHelper.checkAuthenticationHeaders(request)) {
-            BasicAuthHelper.unauthorized(response);
-            return true;
+        if (basicAuthUrl != null && request.url.startsWith(basicAuthUrl)) {
+            if (!BasicAuthHelper.checkAuthenticationHeaders(request)) {
+                BasicAuthHelper.unauthorized(response);
+                return true;
+            }
         }
         return super.serveStatic(file, request, response);
     }
