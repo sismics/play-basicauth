@@ -15,13 +15,13 @@ public class BasicAuthHelper {
     }
 
     public static boolean checkAuthenticationHeaders(Http.Request request) {
+        String username = Play.configuration.getProperty("basicAuth.username");
+        String password = Play.configuration.getProperty("basicAuth.password");
+        if (username == null || password == null) {
+            return true;
+        }
         Http.Header authHeader = request.headers.get("authorization");
         if (authHeader != null) {
-            String username = Play.configuration.getProperty("basicAuth.username");
-            String password = Play.configuration.getProperty("basicAuth.password");
-            if (username == null || password == null) {
-                return true;
-            }
             String expected = "Basic " + Codec.encodeBASE64(username + ":" + password);
             if (expected.equals(authHeader.value())) {
                 return true;
