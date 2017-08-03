@@ -3,6 +3,7 @@ package controllers;
 import helpers.BasicAuthHelper;
 import play.mvc.Before;
 import play.mvc.Controller;
+import play.mvc.results.Unauthorized;
 
 /**
  * @author jtremeaux
@@ -16,7 +17,7 @@ public class BasicAuthSecure extends Controller {
         }
         String credentials = basicAuth.credentials();
         if (!BasicAuthHelper.checkAuthenticationHeaders(request, BasicAuthHelper.getUsername(credentials), BasicAuthHelper.getPassword(credentials))) {
-            BasicAuthHelper.unauthorized(response, BasicAuthHelper.getRealm(credentials));
+            throw new Unauthorized(BasicAuthHelper.getRealm(credentials));
         }
     }
 }

@@ -8,11 +8,6 @@ import play.mvc.Http;
  * @author jtremeaux
  */
 public class BasicAuthHelper {
-    public static void unauthorized(Http.Response response, String realm) {
-        response.status = Http.StatusCode.UNAUTHORIZED;
-        response.setHeader("WWW-Authenticate", "Basic realm=\"" + realm + "\"");
-    }
-
     public static boolean checkAuthenticationHeaders(Http.Request request, String username, String password) {
         if (username == null || password == null) {
             return true;
