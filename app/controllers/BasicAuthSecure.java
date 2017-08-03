@@ -11,8 +11,12 @@ public class BasicAuthSecure extends Controller {
     @Before(priority = 1)
     static void checkAccess() throws Throwable {
         CheckBasicAuth basicAuth = getActionAnnotation(CheckBasicAuth.class);
-        if (basicAuth != null && !BasicAuthHelper.checkAuthenticationHeaders(request)) {
-            BasicAuthHelper.unauthorized(response);
+        if (basicAuth == null) {
+            return;
+        }
+        String credentials = basicAuth.credentials();
+        if (!BasicAuthHelper.checkAuthenticationHeaders(request, BasicAuthHelper.getUsername(credentials), BasicAuthHelper.getPassword(credentials))) {
+            BasicAuthHelper.unauthorized(response, BasicAuthHelper.getRealm(credentials));
         }
     }
 }

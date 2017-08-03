@@ -8,15 +8,12 @@ import play.mvc.Http;
  * @author jtremeaux
  */
 public class BasicAuthHelper {
-    public static void unauthorized(Http.Response response) {
-        String realm = Play.configuration.getProperty("basicAuth.realm", "Secure Realm");
+    public static void unauthorized(Http.Response response, String realm) {
         response.status = Http.StatusCode.UNAUTHORIZED;
         response.setHeader("WWW-Authenticate", "Basic realm=\"" + realm + "\"");
     }
 
-    public static boolean checkAuthenticationHeaders(Http.Request request) {
-        String username = Play.configuration.getProperty("basicAuth.username");
-        String password = Play.configuration.getProperty("basicAuth.password");
+    public static boolean checkAuthenticationHeaders(Http.Request request, String username, String password) {
         if (username == null || password == null) {
             return true;
         }
@@ -28,5 +25,25 @@ public class BasicAuthHelper {
             }
         }
         return false;
+    }
+
+    public static String getPassword(String credentials) {
+        return Play.configuration.getProperty(getPrefix(credentials) + ".password");
+    }
+
+    public static String getUsername(String credentials) {
+        return Play.configuration.getProperty(getPrefix(credentials) + ".username");
+    }
+
+    public static String getRealm(String credentials) {
+        return Play.configuration.getProperty(getPrefix(credentials) + ".realm", "Secure Realm");
+    }
+
+    private static String getPrefix(String credentials) {
+        String prefix = "basicAuth";
+        if (credentials != null && !credentials.trim().isEmpty()) {
+            prefix += "." + credentials;
+        }
+        return prefix;
     }
 }

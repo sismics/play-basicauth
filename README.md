@@ -8,7 +8,7 @@ This plugin adds [HTTP Basic authentication](https://en.wikipedia.org/wiki/Basic
 
 ```
 require:
-    - basicauth -> basicauth 0.1
+    - basicauth -> basicauth 0.2
 
 repositories:
     - sismics:
@@ -23,10 +23,45 @@ repositories:
 ####  Add the configuration to `application.conf`
 
 ```
-basicAuth.url=/public/admin
 basicAuth.username=admin
 basicAuth.password=pass1234
 basicAuth.realm=Secure
+```
+
+####  Secure your actions
+
+Add the BasicAuthSecure interceptor to the controllers to secure.
+
+```
+@With(BasicAuthSecure.class)
+public class MyController extends Controller { ... }
+```
+
+Add the @CheckBasicAuth annotation to the actions to secure.
+
+```
+@BasicAuth
+public static void doSomeStuff() { ... }
+```
+
+####  Secure a static route
+
+Add the route URL to the configuration:
+
+```
+basicAuth.url=/public/admin
+```
+
+####  Secure actions with different credentials
+
+Add a prefix to declare multiple credentials: 
+
+@CheckBasicAuth(credentials = "admin")
+
+```
+basicAuth.admin.username=admin
+basicAuth.admin.password=pass1234
+basicAuth.admin.realm=Secure admin
 ```
 
 # License

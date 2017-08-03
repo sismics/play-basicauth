@@ -11,8 +11,8 @@ public class BasicAuthPlugin extends PlayPlugin {
     public boolean serveStatic(VirtualFile file, Http.Request request, Http.Response response) {
         String basicAuthUrl = Play.configuration.getProperty("basicAuth.url");
         if (basicAuthUrl != null && request.url.startsWith(basicAuthUrl)) {
-            if (!BasicAuthHelper.checkAuthenticationHeaders(request)) {
-                BasicAuthHelper.unauthorized(response);
+            if (!BasicAuthHelper.checkAuthenticationHeaders(request, BasicAuthHelper.getUsername(""), BasicAuthHelper.getPassword(""))) {
+                BasicAuthHelper.unauthorized(response, BasicAuthHelper.getRealm(""));
                 return true;
             }
         }
