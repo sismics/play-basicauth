@@ -8,7 +8,7 @@ This plugin adds [HTTP Basic authentication](https://en.wikipedia.org/wiki/Basic
 
 ```
 require:
-    - basicauth -> basicauth 0.2.1
+    - basicauth -> basicauth 0.2.2
 
 repositories:
     - sismics:
