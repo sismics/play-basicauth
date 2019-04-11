@@ -1,4 +1,8 @@
-self: play -> basicauth 0.2.2
+self: play -> basicauth 1.0.0
+
+configurations:
+    - provided:
+          exclude: true
 
 require:
     - play

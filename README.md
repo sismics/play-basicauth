@@ -8,12 +8,12 @@ This plugin adds [HTTP Basic authentication](https://en.wikipedia.org/wiki/Basic
 
 ```
 require:
-    - basicauth -> basicauth 0.2.2
+    - basicauth -> basicauth 1.0.0
 
 repositories:
-    - sismics:
-        type:       http
-        artifact:   "http://release.sismics.com/repo/play/[module]-[revision].zip"
+    - sismicsNexusRaw:
+        type: http
+        artifact: "https://nexus.sismics.com/repository/sismics/[module]-[revision].zip"
         contains:
             - basicauth -> *
 
