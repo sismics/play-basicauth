@@ -1,3 +1,6 @@
+[![GitHub release](https://img.shields.io/github/release/sismics/play-basicauth.svg?style=flat-square)](https://github.com/sismics/play-basicauth/releases/latest)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 # play-basicauth plugin
 
 This plugin adds [HTTP Basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) support to Play! Framework 1 applications.
@@ -8,7 +11,7 @@ This plugin adds [HTTP Basic authentication](https://en.wikipedia.org/wiki/Basic
 
 ```
 require:
-    - basicauth -> basicauth 1.0.0
+    - basicauth -> basicauth 1.1.0
 
 repositories:
     - sismicsNexusRaw:
